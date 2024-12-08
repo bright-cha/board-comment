@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: boardcomment
+  datasource:
+    # MySQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/study_db?&serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000 #최적화 옵션
+    show_sql: true
