@@ -1,5 +1,6 @@
 package com.brightcha.boardcomment.controller;
 
+import com.brightcha.boardcomment.common.response.Response;
 import com.brightcha.boardcomment.dto.BoardRequestDto;
 import com.brightcha.boardcomment.dto.BoardResponseDto;
 import com.brightcha.boardcomment.service.BoardService;
@@ -9,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +29,8 @@ public class BoardController {
             @ApiResponse(responseCode = "200", description = "성공적으로 모든 게시글을 조회함."),
             @ApiResponse(responseCode = "500", description = "서버 에러 발생.")
     })
-    public ResponseEntity<List<BoardResponseDto>> getBoards() {
-        return ResponseEntity.ok(boardService.getBoards());
+    public Response<List<BoardResponseDto>> getBoards() {
+        return Response.success(boardService.getBoards());
     }
 
     @GetMapping("/boards/{boardId}")
@@ -40,8 +40,8 @@ public class BoardController {
             @ApiResponse(responseCode = "404", description = "해당 게시글을 찾을 수 없음."),
             @ApiResponse(responseCode = "500", description = "서버 에러 발생.")
     })
-    public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long boardId) {
-        return ResponseEntity.ok(boardService.getBoard(boardId));
+    public Response<BoardResponseDto> getBoard(@PathVariable Long boardId) {
+        return Response.success(boardService.getBoard(boardId));
     }
 
     @PostMapping("/boards")
@@ -51,8 +51,8 @@ public class BoardController {
             @ApiResponse(responseCode = "400", description = "입력값이 잘못되었음."),
             @ApiResponse(responseCode = "500", description = "서버 에러 발생.")
     })
-    public ResponseEntity<BoardResponseDto> createBoard(@RequestBody BoardRequestDto boardRequestDto) {
-        return ResponseEntity.ok(boardService.createBoard(boardRequestDto));
+    public Response<BoardResponseDto> createBoard(@RequestBody BoardRequestDto boardRequestDto) {
+        return Response.success(boardService.createBoard(boardRequestDto));
     }
 
     @PutMapping("/boards/{boardId}")
@@ -63,8 +63,8 @@ public class BoardController {
             @ApiResponse(responseCode = "400", description = "입력값이 잘못되었음."),
             @ApiResponse(responseCode = "500", description = "서버 에러 발생.")
     })
-    public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long boardId, @RequestBody BoardRequestDto boardRequestDto) {
-        return ResponseEntity.ok(boardService.updateBoard(boardId, boardRequestDto));
+    public Response<BoardResponseDto> updateBoard(@PathVariable Long boardId, @RequestBody BoardRequestDto boardRequestDto) {
+        return Response.success(boardService.updateBoard(boardId, boardRequestDto));
     }
 
     @DeleteMapping("/boards/{boardId}")
@@ -74,8 +74,8 @@ public class BoardController {
             @ApiResponse(responseCode = "404", description = "해당 게시글을 찾을 수 없음."),
             @ApiResponse(responseCode = "500", description = "서버 에러 발생.")
     })
-    public ResponseEntity<String> deleteBoard(@PathVariable Long boardId) {
+    public Response<Void> deleteBoard(@PathVariable Long boardId) {
         boardService.deleteBoard(boardId);
-        return ResponseEntity.ok("SUCCESS");
+        return Response.success();
     }
 }
